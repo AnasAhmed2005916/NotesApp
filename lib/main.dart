@@ -7,6 +7,7 @@ import 'package:last_version/core/helpers/cubits/theme_cubit/theme_cubit.dart';
 import 'package:last_version/notes/cubits/note_cubit/note_cubit.dart';
 import 'package:last_version/notes/screens/home_page_screen.dart';
 import 'package:last_version/firebase_options.dart';
+import 'package:last_version/splash/screens/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -28,7 +29,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // void initState() {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeCubit, ThemeMode>(
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
           home:
               (FirebaseAuth.instance.currentUser != null &&
                   FirebaseAuth.instance.currentUser!.emailVerified)
-              ? HomePageScreen()
+              ? SplashScreen()
               : LoginScreen(),
         );
       },

@@ -77,9 +77,14 @@ class NoteCubit extends Cubit<NotesState> {
   }
 
   Future<void> deleteAllNotes() async {
-    emit(NotesLoading());
     try {
-      await noteService.deleteAllNotes(FirebaseAuth.instance.currentUser!.uid);
+      final user = FirebaseAuth.instance.currentUser;
+
+      if (user == null) {
+        return;
+      }
+
+      await noteService.deleteAllNotes(user.uid);
     } catch (e) {
       emit(NotesError(e.toString()));
     }
@@ -100,6 +105,14 @@ class NoteCubit extends Cubit<NotesState> {
   Future<void> toggleFavorite(NoteModel note) async {
     try {
       await noteService.toggleFavorite(note.id, !note.isFavorite);
+    } catch (e) {
+      emit(NotesError(e.toString()));
+    }
+  }
+
+  Future<void> toggleArchive(NoteModel note) async {
+    try {
+      await noteService.toggleArchiver(note.id, !note.isArchived);
     } catch (e) {
       emit(NotesError(e.toString()));
     }

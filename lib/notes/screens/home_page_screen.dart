@@ -75,6 +75,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         ),
                       );
                     }
+                    final notes = state.notes
+                        .where((note) => !note.isArchived)
+                        .toList();
 
                     return Column(
                       children: [
@@ -93,7 +96,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         const SizedBox(height: 15),
                         Expanded(
                           child: GridView.builder(
-                            itemCount: state.notes.length,
+                            itemCount: notes.length,
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
@@ -101,7 +104,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   mainAxisSpacing: 12,
                                 ),
                             itemBuilder: (context, index) {
-                              final note = state.notes[index];
+                              final note = notes[index];
 
                               return NoteCardWidget(
                                 note: note,

@@ -45,19 +45,38 @@ class NoteCardWidget extends StatelessWidget {
                 maxLines: 4,
                 overflow: TextOverflow.ellipsis,
               ),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: IconButton(
+              const Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
                     onPressed: () {
                       context.read<NoteCubit>().toggleFavorite(note);
                     },
-                    icon: Icon(
-                      note.isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: note.isFavorite ? Colors.red : null,
+                    icon: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      transitionBuilder: (child, animation) {
+                        return ScaleTransition(scale: animation, child: child);
+                      },
+                      child: Icon(
+                        note.isFavorite
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        key: ValueKey(note.isFavorite),
+                        color: note.isFavorite ? Colors.red : null,
+                      ),
                     ),
                   ),
-                ),
+
+                  IconButton(
+                    onPressed: () {
+                      context.read<NoteCubit>().toggleArchive(note);
+                    },
+                    icon: Icon(
+                      note.isArchived ? Icons.unarchive : Icons.archive,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

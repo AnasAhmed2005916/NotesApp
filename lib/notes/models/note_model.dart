@@ -8,6 +8,7 @@ class NoteModel {
   final DateTime createdAt;
   final String? imageUrl;
   final bool isFavorite;
+  final bool isArchived;
 
   NoteModel({
     required this.id,
@@ -17,6 +18,7 @@ class NoteModel {
     required this.createdAt,
     this.imageUrl,
     this.isFavorite = false,
+    this.isArchived = false,
   });
   factory NoteModel.fromJson(Map<String, dynamic> json, String id) {
     return NoteModel(
@@ -31,6 +33,7 @@ class NoteModel {
       createdAt: (json['createdAt'] as Timestamp).toDate(),
       imageUrl: (json['imageUrl']),
       isFavorite: json['isFavorite'] ?? false,
+      isArchived: json['isArchived'] ?? false,
     );
   }
   Map<String, dynamic> toJson() {
@@ -41,6 +44,7 @@ class NoteModel {
       'createdAt': Timestamp.fromDate(createdAt),
       'imageUrl': imageUrl,
       'isFavorite': isFavorite,
+      'isArchived': isArchived,
     };
   }
 }

@@ -58,15 +58,22 @@ class NoteService {
   }
 
   Future<void> deleteAllNotes(String userId) async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection('notes')
-        .where('userId', isEqualTo: userId)
-        .get();
-    final batch = FirebaseFirestore.instance.batch();
-    for (var doc in snapshot.docs) {
-      batch.delete(doc.reference);
+    try {
+      final snapshot = await _firestore
+          .collection('notes')
+          .where('userId', isEqualTo: userId)
+          .get();
+
+      final batch = _firestore.batch();
+
+      for (final doc in snapshot.docs) {
+        batch.delete(doc.reference);
+      }
+
+      await batch.commit();
+    } catch (e) {
+      rethrow;
     }
-    await batch.commit();
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>> orderByAlphabetical(
@@ -84,6 +91,12 @@ class NoteService {
   Future<void> toggleFavorite(String noteId, bool isFavorite) async {
     await _firestore.collection('notes').doc(noteId).update({
       'isFavorite': isFavorite,
+    });
+  }
+
+  Future<void> toggleArchiver(String noteId, bool isArchived) async {
+    await _firestore.collection('notes').doc(noteId).update({
+      'isArchived': isArchived,
     });
   }
 
