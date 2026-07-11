@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:last_version/core/helpers/dialogs.dart';
+import 'package:last_version/notes/cubits/note_cubit/note_cubit.dart';
 import 'package:last_version/notes/models/note_model.dart';
 import 'package:last_version/notes/screens/notes_details_screen.dart';
 
@@ -42,6 +44,20 @@ class NoteCardWidget extends StatelessWidget {
                 note.description,
                 maxLines: 4,
                 overflow: TextOverflow.ellipsis,
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: IconButton(
+                    onPressed: () {
+                      context.read<NoteCubit>().toggleFavorite(note);
+                    },
+                    icon: Icon(
+                      note.isFavorite ? Icons.favorite : Icons.favorite_border,
+                      color: note.isFavorite ? Colors.red : null,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

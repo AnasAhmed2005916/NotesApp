@@ -1,13 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:last_version/core/helpers/cubits/theme_cubit/theme_cubit.dart';
 import 'package:last_version/notes/cubits/note_cubit/note_cubit.dart';
 import 'package:last_version/notes/cubits/note_cubit/note_state.dart';
-import 'package:last_version/auth/screens/login_screen.dart';
 import 'package:last_version/notes/screens/notes_editor_screen.dart';
 import 'package:last_version/notes/widgets/custom_card_widget.dart';
+import 'package:last_version/notes/widgets/custom_drawer.dart';
 import 'package:last_version/notes/widgets/note_card_widget.dart';
 
 class HomePageScreen extends StatefulWidget {
@@ -33,78 +31,22 @@ class _HomePageScreenState extends State<HomePageScreen> {
     final state = context.watch<NoteCubit>().state;
 
     return Scaffold(
+      drawer: const CustomDrawer(),
       appBar: AppBar(
-        elevation: 2,
-
-        title: const Text(
-          "My Notes",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-
+        title: const Text('My Notes'),
         actions: [
           IconButton(
             onPressed: () {
-              context.read<ThemeCubit>().toggleTheme();
+              final user = FirebaseAuth.instance.currentUser;
+
+              if (user != null) {
+                context.read<NoteCubit>().orderByAlphabetical(user.uid);
+              }
             },
-            icon: const Icon(Icons.dark_mode),
-          ),
-          if (state is NotesLoaded && state.notes.isNotEmpty)
-            IconButton(
-              onPressed: () async {
-                final result = await showDialog<bool>(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: const Text('Delete All Notes'),
-                      content: const Text(
-                        "Are you sure you want to delete all notes?",
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context, false);
-                          },
-                          child: const Text('Cancel'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context, true);
-                          },
-                          child: const Text(
-                            'Delete',
-                            style: TextStyle(color: Colors.red),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                );
-                if (result == true) {
-                  context.read<NoteCubit>().deleteAllNotes();
-                }
-              },
-              icon: Icon(Icons.delete_forever),
-              color: Colors.red,
-            ),
-          IconButton(
-            onPressed: () async {
-              GoogleSignIn googleSignIn = GoogleSignIn();
-
-              await googleSignIn.disconnect();
-
-              await FirebaseAuth.instance.signOut();
-
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (_) => LoginScreen()),
-              );
-            },
-
-            icon: const Icon(Icons.logout),
+            icon: const Icon(Icons.sort_by_alpha),
           ),
         ],
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(16),
 

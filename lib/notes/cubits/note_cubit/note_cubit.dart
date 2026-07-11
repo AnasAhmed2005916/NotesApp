@@ -84,4 +84,24 @@ class NoteCubit extends Cubit<NotesState> {
       emit(NotesError(e.toString()));
     }
   }
+
+  Future<void> orderByAlphabetical(String userId) async {
+    try {
+      final snapshot = await noteService.orderByAlphabetical(userId);
+      final notes = snapshot.docs.map((doc) {
+        return NoteModel.fromJson(doc.data(), doc.id);
+      }).toList();
+      emit(NotesLoaded(notes));
+    } catch (e) {
+      emit(NotesError(e.toString()));
+    }
+  }
+
+  Future<void> toggleFavorite(NoteModel note) async {
+    try {
+      await noteService.toggleFavorite(note.id, !note.isFavorite);
+    } catch (e) {
+      emit(NotesError(e.toString()));
+    }
+  }
 }

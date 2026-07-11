@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import '../models/note_model.dart';
 
 class NoteService {
@@ -68,6 +67,24 @@ class NoteService {
       batch.delete(doc.reference);
     }
     await batch.commit();
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> orderByAlphabetical(
+    String userId,
+  ) async {
+    QuerySnapshot<Map<String, dynamic>> notes = await FirebaseFirestore.instance
+        .collection('notes')
+        .where('userId', isEqualTo: userId)
+        .orderBy('title')
+        .get();
+
+    return notes;
+  }
+
+  Future<void> toggleFavorite(String noteId, bool isFavorite) async {
+    await _firestore.collection('notes').doc(noteId).update({
+      'isFavorite': isFavorite,
+    });
   }
 
   // Future<List<QueryDocumentSnapshot>> getData() async {
