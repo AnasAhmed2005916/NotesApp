@@ -1,17 +1,55 @@
-# last_version
+# 📝 Notes App
 
-A new Flutter project.
+A modern notes application built with **Flutter** and **Firebase**. The app allows users to create, manage, and organize their personal notes through a clean and user-friendly interface.
 
-## Getting Started
+## ✨ Features
 
-This project is a starting point for a Flutter application.
+* 🔐 User Authentication
+* 📝 Create, read, update, and delete notes
+* ❤️ Add notes to Favorites
+* 📌 Pin important notes
+* 📦 Archive notes
+* 🔔 Local notifications and note reminders
+* 🌙 Dark and Light Theme
+* ☁️ Cloud storage using Firebase Firestore
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠️ Technologies Used
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+* Flutter & Dart
+* Firebase Authentication
+* Cloud Firestore
+* Cubit / Flutter Bloc
+* GetIt for Dependency Injection
+* Flutter Local Notifications
+* Feature-Based Architecture
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🏗️ Project Structure
+
+The project follows a **Feature-Based Architecture**, where each feature contains its own screens, widgets, state management, models, and services.
+
+```text
+lib/
+├── core/
+├── auth/
+├── notes/
+└── main.dart
+```
+
+## 📱 Screenshots
+
+<p align="center">
+  <img src="screenshots/splash_screen.jpg" width="250">
+  <img src="screenshots/home_screen.jpg" width="250">
+  <img src="screenshots/add_note_screen.jpg" width="250">
+</p>
+
+<p align="center">
+  <img src="screenshots/Favorite_notes_screen.jpg" width="250">
+  <img src="screenshots/Archived_notes_screen.jpg" width="250">
+  <img src="screenshots/drawer.jpg" width="250">
+</p>
+
+## 👨‍💻 Author
+
+**Anas Ahmed Mazhar**
+Flutter Developer
