@@ -79,6 +79,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         .where((note) => !note.isArchived)
                         .toList();
 
+                    notes.sort((a, b) {
+                      if (a.isPinned == b.isPinned) {
+                        return 0;
+                      }
+                      return a.isPinned ? -1 : 1;
+                    });
+
                     return Column(
                       children: [
                         TextField(

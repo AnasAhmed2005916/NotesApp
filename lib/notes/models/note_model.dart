@@ -9,6 +9,7 @@ class NoteModel {
   final String? imageUrl;
   final bool isFavorite;
   final bool isArchived;
+  final bool isPinned;
 
   NoteModel({
     required this.id,
@@ -19,6 +20,7 @@ class NoteModel {
     this.imageUrl,
     this.isFavorite = false,
     this.isArchived = false,
+    this.isPinned = false,
   });
   factory NoteModel.fromJson(Map<String, dynamic> json, String id) {
     return NoteModel(
@@ -34,6 +36,7 @@ class NoteModel {
       imageUrl: (json['imageUrl']),
       isFavorite: json['isFavorite'] ?? false,
       isArchived: json['isArchived'] ?? false,
+      isPinned: json['isPinned'] ?? false,
     );
   }
   Map<String, dynamic> toJson() {
@@ -45,6 +48,7 @@ class NoteModel {
       'imageUrl': imageUrl,
       'isFavorite': isFavorite,
       'isArchived': isArchived,
+      'isPinned': isPinned,
     };
   }
 }

@@ -100,6 +100,12 @@ class NoteService {
     });
   }
 
+  Future<void> togglePin(String noteId, bool isPinned) async {
+    await _firestore.collection('notes').doc(noteId).update({
+      'isPinned': isPinned,
+    });
+  }
+
   // Future<List<QueryDocumentSnapshot>> getData() async {
   //   QuerySnapshot querySnapshot = await _firestore.collection('notes').get();
   //   return querySnapshot.docs;

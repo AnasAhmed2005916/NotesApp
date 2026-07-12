@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:last_version/auth/screens/login_screen.dart';
+import 'package:last_version/core/dependency_injuction/dependency_injuction.dart';
 import 'package:last_version/core/helpers/cubits/theme_cubit/theme_cubit.dart';
 import 'package:last_version/notes/cubits/note_cubit/note_cubit.dart';
 import 'package:last_version/notes/screens/home_page_screen.dart';
@@ -15,11 +16,12 @@ void main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final prefs = await SharedPreferences.getInstance();
+  setupGetIt();
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => ThemeCubit(prefs)),
-        BlocProvider(create: (context) => NoteCubit()),
+        BlocProvider(create: (context) => getIt<NoteCubit>()),
       ],
       child: MyApp(),
     ),

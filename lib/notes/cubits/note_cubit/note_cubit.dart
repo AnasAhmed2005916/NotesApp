@@ -8,9 +8,9 @@ import 'package:last_version/notes/models/note_model.dart';
 import 'package:last_version/notes/services/note_services.dart';
 
 class NoteCubit extends Cubit<NotesState> {
-  NoteCubit() : super(NotesInitial());
+  final NoteService noteService;
+  NoteCubit({required this.noteService}) : super(NotesInitial());
   StreamSubscription? _notesSubscription;
-  final NoteService noteService = NoteService();
   void listenToNotes(String userId) {
     emit(NotesLoading());
     _notesSubscription?.cancel();
@@ -113,6 +113,14 @@ class NoteCubit extends Cubit<NotesState> {
   Future<void> toggleArchive(NoteModel note) async {
     try {
       await noteService.toggleArchiver(note.id, !note.isArchived);
+    } catch (e) {
+      emit(NotesError(e.toString()));
+    }
+  }
+
+  Future<void> togglePin(NoteModel note) async {
+    try {
+      await noteService.togglePin(note.id, !note.isPinned);
     } catch (e) {
       emit(NotesError(e.toString()));
     }

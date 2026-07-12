@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:last_version/auth/screens/login_screen.dart';
 import 'package:last_version/auth/services/auth_service.dart';
 import 'package:last_version/auth/widgets/custom_text_form_field.dart';
+import 'package:last_version/core/dependency_injuction/dependency_injuction.dart';
 import 'package:last_version/core/helpers/dialogs.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -14,7 +15,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final AuthService authService = AuthService();
+  final AuthService authService = getIt<AuthService>();
   final formKey = GlobalKey<FormState>();
 
   final nameController = TextEditingController();

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:last_version/auth/screens/sign_up_screen.dart';
+import 'package:last_version/core/dependency_injuction/dependency_injuction.dart';
 import 'package:last_version/notes/screens/home_page_screen.dart';
 import 'package:last_version/auth/widgets/custom_text_form_field.dart';
 import 'package:last_version/core/helpers/dialogs.dart';
@@ -9,7 +10,7 @@ import 'package:last_version/auth/services/auth_service.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-  final AuthService authService = AuthService();
+  final AuthService authService = getIt<AuthService>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 

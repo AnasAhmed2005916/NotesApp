@@ -38,12 +38,32 @@ class NoteCardWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
 
             children: [
-              Text(note.title, style: TextStyle(fontWeight: FontWeight.bold)),
-              SizedBox(height: 10),
-              Text(
-                note.description,
-                maxLines: 4,
-                overflow: TextOverflow.ellipsis,
+              Row(
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        note.title,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        note.description,
+                        maxLines: 4,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                  IconButton(
+                    onPressed: () {
+                      context.read<NoteCubit>().togglePin(note);
+                    },
+                    icon: Icon(
+                      note.isPinned ? Icons.push_pin : Icons.push_pin_outlined,
+                    ),
+                  ),
+                ],
               ),
               const Spacer(),
               Row(
