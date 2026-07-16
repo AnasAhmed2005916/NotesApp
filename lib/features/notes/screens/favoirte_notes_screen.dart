@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:last_version/notes/cubits/note_cubit/note_cubit.dart';
-import 'package:last_version/notes/cubits/note_cubit/note_state.dart';
-import 'package:last_version/notes/widgets/note_card_widget.dart';
+import 'package:last_version/features/notes/cubits/note_cubit/note_cubit.dart';
+import 'package:last_version/features/notes/cubits/note_cubit/note_state.dart';
+import 'package:last_version/features/notes/widgets/note_card_widget.dart';
 
 class FavoirteNotesScreen extends StatelessWidget {
   const FavoirteNotesScreen({super.key});
@@ -10,7 +11,7 @@ class FavoirteNotesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Favorite Notes')),
+      appBar: AppBar(title: Text("favorite_notes".tr())),
       body: SafeArea(
         child: BlocBuilder<NoteCubit, NotesState>(
           builder: (context, state) {
@@ -28,7 +29,7 @@ class FavoirteNotesScreen extends StatelessWidget {
                   .toList();
 
               if (favoriteNotes.isEmpty) {
-                return const Center(child: Text('No Favorite Notes'));
+                return Center(child: Text("no_favorite_notes".tr()));
               }
 
               return GridView.builder(

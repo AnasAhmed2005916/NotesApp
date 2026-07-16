@@ -1,14 +1,18 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:last_version/notes/cubits/note_cubit/note_cubit.dart';
-import 'package:last_version/notes/models/note_model.dart';
+import 'package:last_version/features/notes/cubits/note_cubit/note_cubit.dart';
+import 'package:last_version/features/notes/models/note_model.dart';
+import 'package:last_version/features/notes/screens/home_page_screen.dart';
+import 'package:last_version/features/notes/screens/notes_details_screen.dart';
 
 class NoteEditorScreen extends StatefulWidget {
   const NoteEditorScreen({super.key, this.note});
+
   final NoteModel? note;
 
   @override
@@ -19,23 +23,24 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
   File? file;
-  getImage() async {
+
+  Future<void> getImage() async {
     final picker = ImagePicker();
-    // final XFile? imagegallery = await picker.pickImage(
-    //   source: ImageSource.gallery,
-    // );
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    if (image == null) {
-      return;
-    }
+
+    if (image == null) return;
+
     setState(() {
       file = File(image.path);
     });
   }
 
+  @override
   void initState() {
     super.initState();
+
     if (widget.note != null) {
       titleController.text = widget.note!.title;
       descriptionController.text = widget.note!.description;
@@ -46,7 +51,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.note == null ? 'New Note' : 'Edit Note'),
+        title: Text(widget.note == null ? "new_note".tr() : "edit_note".tr()),
         actions: [
           IconButton(onPressed: getImage, icon: const Icon(Icons.image)),
           IconButton(
@@ -54,6 +59,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
               if (!_formKey.currentState!.validate()) {
                 return;
               }
+
               final title = titleController.text.trim();
               final description = descriptionController.text.trim();
 
@@ -65,6 +71,7 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
                   userId: FirebaseAuth.instance.currentUser!.uid,
                   createdAt: DateTime.now(),
                 );
+
                 final success = await context.read<NoteCubit>().addNote(note);
 
                 if (success && mounted) {
@@ -92,21 +99,21 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
           key: _formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: [
               TextFormField(
+                controller: titleController,
+                textCapitalization: TextCapitalization.sentences,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Title is required';
+                    return "title_required".tr();
                   }
                   return null;
                 },
-                controller: titleController,
-                textCapitalization: TextCapitalization.sentences,
-                decoration: const InputDecoration(
-                  hintText: "Title",
+                decoration: InputDecoration(
+                  hintText: "title".tr(),
                   border: InputBorder.none,
                 ),
                 style: const TextStyle(
@@ -114,7 +121,9 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+
               const SizedBox(height: 10),
+
               if (file != null)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),
@@ -131,12 +140,6 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
 
               Expanded(
                 child: TextFormField(
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Description is required';
-                    }
-                    return null;
-                  },
                   controller: descriptionController,
                   textCapitalization: TextCapitalization.sentences,
                   expands: true,
@@ -144,8 +147,14 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
                   minLines: null,
                   keyboardType: TextInputType.multiline,
                   textAlignVertical: TextAlignVertical.top,
-                  decoration: const InputDecoration(
-                    hintText: "Note",
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "description_required".tr();
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    hintText: "note".tr(),
                     border: InputBorder.none,
                   ),
                 ),

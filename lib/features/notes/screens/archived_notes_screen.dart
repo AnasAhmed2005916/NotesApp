@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:last_version/notes/cubits/note_cubit/note_cubit.dart';
-import 'package:last_version/notes/cubits/note_cubit/note_state.dart';
-import 'package:last_version/notes/widgets/note_card_widget.dart';
+import 'package:last_version/features/notes/cubits/note_cubit/note_cubit.dart';
+import 'package:last_version/features/notes/cubits/note_cubit/note_state.dart';
+import 'package:last_version/features/notes/widgets/note_card_widget.dart';
 
 class ArchivedNotesScreen extends StatelessWidget {
   const ArchivedNotesScreen({super.key});
@@ -10,7 +11,7 @@ class ArchivedNotesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Archived Notes')),
+      appBar: AppBar(title: Text("archived_notes".tr())),
       body: BlocBuilder<NoteCubit, NotesState>(
         builder: (context, state) {
           if (state is NotesLoaded) {
@@ -21,11 +22,15 @@ class ArchivedNotesScreen extends StatelessWidget {
             if (archivedNotes.isEmpty) {
               return Center(
                 child: Text(
-                  'No Arvhived Notes yet',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  "no_archived_notes".tr(),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
                 ),
               );
             }
+
             return GridView.builder(
               itemCount: archivedNotes.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -45,6 +50,7 @@ class ArchivedNotesScreen extends StatelessWidget {
               },
             );
           }
+
           return const SizedBox();
         },
       ),

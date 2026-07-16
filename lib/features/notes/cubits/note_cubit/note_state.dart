@@ -1,4 +1,4 @@
-import 'package:last_version/notes/models/note_model.dart';
+import 'package:last_version/features/notes/models/note_model.dart';
 
 abstract class NotesState {}
 

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:last_version/notes/cubits/note_cubit/note_cubit.dart';
-import 'package:last_version/notes/models/note_model.dart';
-import 'package:last_version/notes/services/note_services.dart';
+import 'package:last_version/features/notes/cubits/note_cubit/note_cubit.dart';
+import 'package:last_version/features/notes/models/note_model.dart';
+import 'package:last_version/features/notes/services/note_services.dart';
+
 
 class UpdateNoteDialogWidget extends StatefulWidget {
   final NoteModel note;

@@ -1,7 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:last_version/auth/screens/login_screen.dart';
-import 'package:last_version/notes/screens/home_page_screen.dart';
+import 'package:last_version/features/auth/screens/login_screen.dart';
+import 'package:last_version/features/notes/screens/home_page_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -90,10 +91,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 offset: showText ? Offset.zero : const Offset(0, 0.5),
                 duration: const Duration(milliseconds: 800),
                 curve: Curves.easeOut,
-                child: const Column(
+                child: Column(
                   children: [
                     Text(
-                      'Notes App',
+                      "app_name".tr(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
@@ -103,7 +104,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     SizedBox(height: 5),
 
                     Text(
-                      'Write anything...',
+                      "write_anything".tr(),
                       style: TextStyle(
                         fontWeight: FontWeight.w300,
                         fontSize: 22,
