@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:last_version/core/dependency_injuction/dependency_injuction.dart';
 import 'package:last_version/core/helpers/dialogs.dart';
+import 'package:last_version/core/utils/app_text_styles.dart';
 import 'package:last_version/features/auth/screens/sign_up_screen.dart';
 import 'package:last_version/features/auth/services/auth_service.dart';
 import 'package:last_version/features/auth/widgets/custom_text_form_field.dart';
@@ -199,10 +200,7 @@ class LoginScreen extends StatelessWidget {
                         },
                         child: Text(
                           "create_account".tr(),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
+                          style: AppTextStyles.authTitle,
                         ),
                       ),
                     ),
@@ -244,10 +242,7 @@ class LoginScreen extends StatelessWidget {
                             const SizedBox(width: 10),
                             Text(
                               "login_with_google".tr(),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
+                              style: AppTextStyles.authTitle,
                             ),
                           ],
                         ),

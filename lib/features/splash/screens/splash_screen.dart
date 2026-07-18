@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:last_version/core/utils/app_images.dart';
 import 'package:last_version/features/auth/screens/login_screen.dart';
 import 'package:last_version/features/notes/screens/home_page_screen.dart';
 
@@ -74,11 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 scale: scale,
                 duration: const Duration(milliseconds: 1000),
                 curve: Curves.easeOutBack,
-                child: Image.asset(
-                  'assets/images/app_logo.png',
-                  width: 220,
-                  height: 220,
-                ),
+                child: Image.asset(AppImages.appLogo, width: 220, height: 220),
               ),
             ),
 

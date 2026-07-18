@@ -10,7 +10,7 @@ import 'package:last_version/core/services/notification_service.dart';
 import 'package:last_version/features/auth/screens/login_screen.dart';
 import 'package:last_version/features/notes/cubits/note_cubit/note_cubit.dart';
 import 'package:last_version/features/notes/screens/home_page_screen.dart';
-import 'package:last_version/features/on_boarding/screens/on_boarding_screen.dart';
+import 'package:last_version/features/onboarding/screens/on_boarding_screen.dart';
 import 'package:last_version/firebase_options.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:last_version/core/helpers/storage_helper.dart';
 import 'package:last_version/features/auth/screens/login_screen.dart';
-import 'package:last_version/features/on_boarding/models/on_boarding_data.dart';
+import 'package:last_version/features/onboarding/models/on_boarding_data.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
